@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments and packaging
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local state, credentials, recordings, and models
+config.json
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+*.p12
+runtime-events.jsonl
+*.log
+*.tmp
+recordings/
+artifacts/
+models/
+.cache/
+*.bin
+*.ct2
+
+# Local agent workspace metadata
+.hermes/
+.warp/

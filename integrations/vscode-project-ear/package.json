@@ -1,0 +1,84 @@
+{
+  "name": "glitchscribe-project-ear",
+  "displayName": "GlitchScribe Project Ear",
+  "description": "Private metadata-only workspace awareness for the local GlitchScribe app.",
+  "version": "0.2.0",
+  "publisher": "glitchfactor",
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "keywords": ["glitchscribe", "local", "privacy", "workspace"],
+  "extensionKind": ["ui"],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:glitchscribeProjectEar.sync",
+    "onCommand:glitchscribeProjectEar.showStatus"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Project Ear inventory is disabled until the workspace is trusted."
+    },
+    "virtualWorkspaces": {
+      "supported": true
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "glitchscribeProjectEar.sync",
+        "title": "GlitchScribe: Sync Project Ear Metadata"
+      },
+      {
+        "command": "glitchscribeProjectEar.showStatus",
+        "title": "GlitchScribe: Show Project Ear Status"
+      }
+    ],
+    "configuration": {
+      "title": "GlitchScribe Project Ear",
+      "properties": {
+        "glitchscribeProjectEar.autoSync": {
+          "type": "boolean",
+          "default": true,
+          "description": "Synchronize bounded workspace names and relative file paths after metadata changes."
+        },
+        "glitchscribeProjectEar.maxFiles": {
+          "type": "integer",
+          "default": 5000,
+          "minimum": 100,
+          "maximum": 5000,
+          "description": "Maximum relative file paths sent to the local GlitchScribe process."
+        },
+        "glitchscribeProjectEar.exclude": {
+          "type": "string",
+          "default": "**/{.git,node_modules,.venv,venv,__pycache__,dist,build,out}/**",
+          "description": "Glob excluded from Project Ear metadata discovery."
+        },
+        "glitchscribeProjectEar.shareActiveFileMetadata": {
+          "type": "boolean",
+          "default": false,
+          "description": "Separately approve sharing the active workspace-relative file path and language ID. No file content is read or sent."
+        },
+        "glitchscribeProjectEar.shareDiagnosticMetadata": {
+          "type": "boolean",
+          "default": false,
+          "description": "Separately approve sharing bounded diagnostic code, severity, source, range, and relative path metadata. Diagnostic messages and source text are excluded."
+        },
+        "glitchscribeProjectEar.maxDiagnostics": {
+          "type": "integer",
+          "default": 100,
+          "minimum": 1,
+          "maximum": 200,
+          "description": "Maximum approved diagnostic metadata records sent per Project Ear synchronization."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node --test ../../tests/project_ear_extension.test.js",
+    "check": "node --check extension.js && node --check protocol.js"
+  }
+}
